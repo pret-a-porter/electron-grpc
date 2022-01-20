@@ -21,7 +21,12 @@ const Hello = () => {
 
   return (
     <main>
-      <h1>GRPC example</h1>
+      <h1>Electron gRPC</h1>
+      <h3>
+        Demonstration of using preload script approach. It provides ability to
+        use all power of nodejs functionality
+      </h3>
+      <hr />
       <table style={{ width: '100%' }}>
         <thead>
           <tr>
