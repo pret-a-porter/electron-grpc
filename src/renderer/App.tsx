@@ -10,6 +10,10 @@ const Hello = () => {
     setList(await window.fetchAll());
   }, []);
 
+  const generateNewEmployee = useCallback(async () => {
+    await window.generate();
+  }, []);
+
   useEffect(() => {
     fetchAll();
   }, [fetchAll]);
@@ -37,6 +41,15 @@ const Hello = () => {
           ))}
         </tbody>
       </table>
+      <tfoot>
+        <tr>
+          <td colSpan={4}>
+            <button type="button" onClick={() => generateNewEmployee()}>
+              Generate New Employee
+            </button>
+          </td>
+        </tr>
+      </tfoot>
     </main>
   );
 };

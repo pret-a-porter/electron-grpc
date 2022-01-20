@@ -1,7 +1,7 @@
 const path = require('path');
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
-const { employees } = require('./data');
+const { employees, generateEmployee } = require('./data');
 
 const packageDefinition = protoLoader.loadSync(
   path.resolve(__dirname, '../proto/employee.proto'),
@@ -21,9 +21,19 @@ function getAll(call, callback) {
   });
 }
 
+function generate(call, callback) {
+  const newEmployee = generateEmployee();
+  employees.push(newEmployee);
+
+  callback(null, {
+    employee: newEmployee,
+  });
+}
+
 function main() {
   const server = new grpc.Server();
   server.addService(employeeProto.Employee.service, {
+    generate,
     getAll,
   });
   server.bindAsync(

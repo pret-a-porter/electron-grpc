@@ -3,14 +3,21 @@ syntax = "proto3";
 package employee;
 
 service Employee {
+  rpc generate (GenerateRequest) returns (GenerateResponse) {}
   rpc getAll (GetAllRequest) returns (GetAllResponse) {}
 }
 
 message EmployeeDetails {
-  int32 id = 1;
+  string id = 1;
   string email = 2;
   string firstName = 3;
   string lastName = 4;
+}
+
+message GenerateRequest {}
+
+message GenerateResponse {
+  EmployeeDetails employee = 1;
 }
 
 message GetAllRequest {}

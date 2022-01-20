@@ -21,4 +21,13 @@ function fetchAll() {
   );
 }
 
+function generate() {
+  return new Promise((resolve) =>
+    client.generate({}, (err, response) => {
+      resolve(response.employee);
+    })
+  );
+}
+
 exports.fetchAll = fetchAll;
+exports.generate = generate;
