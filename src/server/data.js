@@ -9,7 +9,4 @@ function generateEmployee() {
   };
 }
 
-const employees = [generateEmployee(), generateEmployee(), generateEmployee()];
-
 exports.generateEmployee = generateEmployee;
-exports.employees = employees;

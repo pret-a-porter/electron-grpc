@@ -3,8 +3,8 @@ syntax = "proto3";
 package employee;
 
 service Employee {
-  rpc generate (GenerateRequest) returns (GenerateResponse) {}
-  rpc getAll (GetAllRequest) returns (GetAllResponse) {}
+  rpc generate (GenerateRequest) returns (GenerateResponse);
+  rpc getAll (GetAllRequest) returns (stream GetAllResponse);
 }
 
 message EmployeeDetails {

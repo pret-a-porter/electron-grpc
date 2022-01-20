@@ -7,7 +7,8 @@ const Hello = () => {
   const [list, setList] = useState<Employee[]>([]);
 
   const fetchAll = useCallback(async () => {
-    setList(await window.fetchAll());
+    const response = window.fetchAll();
+    response.subscribe((value) => setList(value));
   }, []);
 
   const generateNewEmployee = useCallback(async () => {

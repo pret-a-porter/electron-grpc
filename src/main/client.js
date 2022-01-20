@@ -1,4 +1,5 @@
 const path = require('path');
+const { Subject } = require('rxjs');
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 
@@ -14,11 +15,13 @@ const client = new employeeProto.Employee(
 );
 
 function fetchAll() {
-  return new Promise((resolve) =>
-    client.getAll({}, (err, response) => {
-      resolve(response.employees);
-    })
-  );
+  const subject = new Subject();
+
+  client.getAll({}).on('data', (chunk) => {
+    subject.next(chunk.employees);
+  });
+
+  return subject;
 }
 
 function generate() {
