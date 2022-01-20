@@ -1,46 +1,43 @@
-import { useEffect } from 'react';
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
+import { Employee } from 'model/Employee';
+import { useCallback, useEffect, useState } from 'react';
+import { MemoryRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 
 const Hello = () => {
-  useEffect(() => {
-    console.log('debug: effect ', (window as any).fetchEmployee(2));
+  const [list, setList] = useState<Employee[]>([]);
+
+  const fetchAll = useCallback(async () => {
+    setList(await window.fetchAll());
   }, []);
 
+  useEffect(() => {
+    fetchAll();
+  }, [fetchAll]);
+
   return (
-    <div>
-      <div className="Hello">
-        <img width="200px" alt="icon" src={icon} />
-      </div>
-      <h1>electron-react-boilerplate</h1>
-      <div className="Hello">
-        <a
-          href="https://electron-react-boilerplate.js.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
-      </div>
-    </div>
+    <main>
+      <h1>GRPC example</h1>
+      <table style={{ width: '100%' }}>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>E-mail</th>
+            <th>First name</th>
+            <th>Last name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {list.map((employee) => (
+            <tr key={employee.id}>
+              <td>{employee.id}</td>
+              <td>{employee.email}</td>
+              <td>{employee.firstName}</td>
+              <td>{employee.lastName}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </main>
   );
 };
 

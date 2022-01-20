@@ -1,3 +1,3 @@
-const { fetchEmployee } = require('./client');
+const { fetchAll } = require('./client');
 
-window.fetchEmployee = fetchEmployee;
+window.fetchAll = fetchAll;

@@ -8,20 +8,17 @@ const packageDefinition = protoLoader.loadSync(
 );
 const employeeProto = grpc.loadPackageDefinition(packageDefinition).employee;
 
-function fetchEmployee(id) {
-  const client = new employeeProto.Employee(
-    'localhost:4500',
-    grpc.credentials.createInsecure()
-  );
+const client = new employeeProto.Employee(
+  'localhost:4500',
+  grpc.credentials.createInsecure()
+);
 
-  client.getDetails({ id }, (err, response) => {
-    console.log(
-      'Employee Details for Employee Id:',
-      id,
-      '\n',
-      response.message
-    );
-  });
+function fetchAll() {
+  return new Promise((resolve) =>
+    client.getAll({}, (err, response) => {
+      resolve(response.employees);
+    })
+  );
 }
 
-exports.fetchEmployee = fetchEmployee;
+exports.fetchAll = fetchAll;

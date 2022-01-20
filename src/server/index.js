@@ -15,16 +15,16 @@ const packageDefinition = protoLoader.loadSync(
 );
 const employeeProto = grpc.loadPackageDefinition(packageDefinition).employee;
 
-function getDetails(call, callback) {
+function getAll(call, callback) {
   callback(null, {
-    message: employees.find((employee) => employee.id === call.request.id),
+    employees,
   });
 }
 
 function main() {
   const server = new grpc.Server();
   server.addService(employeeProto.Employee.service, {
-    getDetails,
+    getAll,
   });
   server.bindAsync(
     '0.0.0.0:4500',
