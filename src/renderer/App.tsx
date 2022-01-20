@@ -40,16 +40,16 @@ const Hello = () => {
             </tr>
           ))}
         </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan={4}>
+              <button type="button" onClick={() => generateNewEmployee()}>
+                Generate New Employee
+              </button>
+            </td>
+          </tr>
+        </tfoot>
       </table>
-      <tfoot>
-        <tr>
-          <td colSpan={4}>
-            <button type="button" onClick={() => generateNewEmployee()}>
-              Generate New Employee
-            </button>
-          </td>
-        </tr>
-      </tfoot>
     </main>
   );
 };
