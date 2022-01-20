@@ -16,8 +16,6 @@ const packageDefinition = protoLoader.loadSync(
 const employeeProto = grpc.loadPackageDefinition(packageDefinition).employee;
 
 function getDetails(call, callback) {
-  console.log('debug: get details ', call.request.id);
-
   callback(null, {
     message: employees.find((employee) => employee.id === call.request.id),
   });

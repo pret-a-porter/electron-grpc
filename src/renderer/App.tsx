@@ -5,7 +5,7 @@ import './App.css';
 
 const Hello = () => {
   useEffect(() => {
-    console.log('debug: effect ', (window as any).electron.fetchEmployee(2));
+    console.log('debug: effect ', (window as any).fetchEmployee(2));
   }, []);
 
   return (
