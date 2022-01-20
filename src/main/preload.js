@@ -1,6 +1,9 @@
 const { contextBridge, ipcRenderer } = require('electron');
+const { fetchEmployee } = require('./client');
 
 contextBridge.exposeInMainWorld('electron', {
+  fetchEmployee,
+  wtf: true,
   ipcRenderer: {
     myPing() {
       ipcRenderer.send('ipc-example', 'ping');
@@ -21,3 +24,5 @@ contextBridge.exposeInMainWorld('electron', {
     },
   },
 });
+
+window.wtf = true;

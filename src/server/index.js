@@ -1,5 +1,5 @@
 const path = require('path');
-const grpc = require('grpc');
+const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const { employees } = require('./data');
 
@@ -16,6 +16,8 @@ const packageDefinition = protoLoader.loadSync(
 const employeeProto = grpc.loadPackageDefinition(packageDefinition).employee;
 
 function getDetails(call, callback) {
+  console.log('debug: get details ', call.request.id);
+
   callback(null, {
     message: employees.find((employee) => employee.id === call.request.id),
   });
@@ -26,8 +28,14 @@ function main() {
   server.addService(employeeProto.Employee.service, {
     getDetails,
   });
-  server.bind('0.0.0.0:4500', grpc.ServerCredentials.createInsecure());
-  server.start();
+  server.bindAsync(
+    '0.0.0.0:4500',
+    grpc.ServerCredentials.createInsecure(),
+    () => {
+      server.start();
+      console.log('Server started');
+    }
+  );
 }
 
 main();

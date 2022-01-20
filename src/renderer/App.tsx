@@ -1,8 +1,13 @@
+import { useEffect } from 'react';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import icon from '../../assets/icon.svg';
 import './App.css';
 
 const Hello = () => {
+  useEffect(() => {
+    console.log('debug: effect ', (window as any).electron.fetchEmployee(2));
+  }, []);
+
   return (
     <div>
       <div className="Hello">
