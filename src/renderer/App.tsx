@@ -8,7 +8,10 @@ const Hello = () => {
 
   const fetchAll = useCallback(async () => {
     const response = window.fetchAll();
-    response.subscribe((value) => setList(value));
+    response.subscribe((value) => {
+      console.log('debug: received new batch. Batch size is ', value.length);
+      setList(value);
+    });
   }, []);
 
   const generateNewEmployee = useCallback(async () => {
@@ -37,7 +40,7 @@ const Hello = () => {
           </tr>
         </thead>
         <tbody>
-          {list.map((employee) => (
+          {list.slice(0, 300).map((employee) => (
             <tr key={employee.id}>
               <td>{employee.id}</td>
               <td>{employee.email}</td>
