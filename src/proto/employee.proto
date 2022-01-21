@@ -12,6 +12,7 @@ message EmployeeDetails {
   string email = 2;
   string firstName = 3;
   string lastName = 4;
+  string city = 5;
 }
 
 message GenerateRequest {}

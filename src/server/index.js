@@ -3,6 +3,7 @@ const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const { Subject } = require('rxjs');
 const { generateEmployee } = require('./data');
+const faker = require('@faker-js/faker');
 
 const employees = [];
 
@@ -19,7 +20,7 @@ const packageDefinition = protoLoader.loadSync(
 const employeeProto = grpc.loadPackageDefinition(packageDefinition).employee;
 
 function getAll(call) {
-  const BATCH_SIZE = 10000;
+  const BATCH_SIZE = 30000;
   const list = [];
 
   const add = () => {
@@ -31,10 +32,7 @@ function getAll(call) {
 
   const update = (start = 0) => {
     for (let i = start; i < list.length - 1; i += 1) {
-      list[i] = {
-        ...generateEmployee(),
-        id: list[i].id,
-      };
+      list[i].email = faker.internet.email();
     }
     call.write({ employees: list });
   };

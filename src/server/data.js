@@ -6,6 +6,7 @@ function generateEmployee() {
     email: faker.internet.email(),
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
+    city: faker.address.city(),
   };
 }
 

@@ -37,6 +37,7 @@ const Hello = () => {
             <th>E-mail</th>
             <th>First name</th>
             <th>Last name</th>
+            <th>City</th>
           </tr>
         </thead>
         <tbody>
@@ -46,6 +47,7 @@ const Hello = () => {
               <td>{employee.email}</td>
               <td>{employee.firstName}</td>
               <td>{employee.lastName}</td>
+              <td>{employee.city}</td>
             </tr>
           ))}
         </tbody>
