@@ -7,4 +7,7 @@ export interface Employee {
   phone: string;
   age: number;
   experience: number;
+  country: string;
+  zip_code: string;
+  street_name: string;
 }

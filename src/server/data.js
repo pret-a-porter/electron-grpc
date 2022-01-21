@@ -7,9 +7,12 @@ function generateEmployee() {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     city: faker.address.city(),
-    phone: '12345',
-    age: 33,
-    experience: 10,
+    phone: '+123456789',
+    age: 100,
+    experience: 50,
+    country: 'Test',
+    zip_code: '12345',
+    street_name: 'Test',
   };
 }
 

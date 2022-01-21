@@ -41,6 +41,9 @@ const Hello = () => {
             <th>Phone</th>
             <th>Age</th>
             <th>Experience</th>
+            <th>ZIP code</th>
+            <th>Country</th>
+            <th>Street</th>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +57,9 @@ const Hello = () => {
               <td>{employee.phone}</td>
               <td>{employee.age}</td>
               <td>{employee.experience}</td>
+              <td>{employee.zip_code}</td>
+              <td>{employee.country}</td>
+              <td>{employee.street_name}</td>
             </tr>
           ))}
         </tbody>
