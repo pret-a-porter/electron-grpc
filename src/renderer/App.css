@@ -42,6 +42,10 @@ main {
   min-width: 600px;
 }
 
+table {
+  table-layout: fixed;
+}
+
 td {
   text-align: center;
 }
