@@ -13,6 +13,9 @@ message EmployeeDetails {
   string firstName = 3;
   string lastName = 4;
   string city = 5;
+  string phone = 6;
+  int32 age = 7;
+  int32 experience = 8;
 }
 
 message GenerateRequest {}

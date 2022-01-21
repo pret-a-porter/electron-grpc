@@ -4,4 +4,7 @@ export interface Employee {
   firstName: string;
   lastName: string;
   city: string;
+  phone: string;
+  age: number;
+  experience: number;
 }

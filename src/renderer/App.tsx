@@ -33,11 +33,14 @@ const Hello = () => {
       <table style={{ width: '100%' }}>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>E-mail</th>
+            <th className="id-column">ID</th>
+            <th className="email-column">E-mail</th>
             <th>First name</th>
             <th>Last name</th>
             <th>City</th>
+            <th>Phone</th>
+            <th>Age</th>
+            <th>Experience</th>
           </tr>
         </thead>
         <tbody>
@@ -48,6 +51,9 @@ const Hello = () => {
               <td>{employee.firstName}</td>
               <td>{employee.lastName}</td>
               <td>{employee.city}</td>
+              <td>{employee.phone}</td>
+              <td>{employee.age}</td>
+              <td>{employee.experience}</td>
             </tr>
           ))}
         </tbody>
