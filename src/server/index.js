@@ -20,7 +20,7 @@ const packageDefinition = protoLoader.loadSync(
 const employeeProto = grpc.loadPackageDefinition(packageDefinition).employee;
 
 function getAll(call) {
-  const BATCH_SIZE = 30000;
+  const BATCH_SIZE = 25000;
   const list = [];
 
   const add = () => {

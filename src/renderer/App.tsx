@@ -53,13 +53,13 @@ const Hello = () => {
               <td>{employee.email}</td>
               <td>{employee.firstName}</td>
               <td>{employee.lastName}</td>
-              <td>{employee.city}</td>
+              <td>{employee.address.city}</td>
               <td>{employee.phone}</td>
               <td>{employee.age}</td>
               <td>{employee.experience}</td>
-              <td>{employee.zip_code}</td>
-              <td>{employee.country}</td>
-              <td>{employee.street_name}</td>
+              <td>{employee.address.zip_code}</td>
+              <td>{employee.address.country}</td>
+              <td>{employee.address.street_name}</td>
             </tr>
           ))}
         </tbody>

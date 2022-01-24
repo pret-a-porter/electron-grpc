@@ -7,18 +7,22 @@ service Employee {
   rpc getAll (GetAllRequest) returns (stream GetAllResponse);
 }
 
+message Address {
+  string city = 1;
+  string country = 2;
+  string zip_code = 3;
+  string street_name = 4;
+}
+
 message EmployeeDetails {
   string id = 1;
   string email = 2;
   string firstName = 3;
   string lastName = 4;
-  string city = 5;
+  Address address = 5;
   string phone = 6;
   int32 age = 7;
   int32 experience = 8;
-  string country = 9;
-  string zip_code = 10;
-  string street_name = 11;
 }
 
 message GenerateRequest {}
