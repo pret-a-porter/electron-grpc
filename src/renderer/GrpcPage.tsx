@@ -2,7 +2,7 @@ import { Employee } from 'model/Employee';
 import { FC, useCallback, useEffect, useState } from 'react';
 import { List } from './List';
 
-export const Grpc: FC = () => {
+export const GrpcPage: FC = () => {
   const [list, setList] = useState<Employee[]>([]);
 
   const fetchAll = useCallback(async () => {
@@ -20,10 +20,6 @@ export const Grpc: FC = () => {
   return (
     <main>
       <h1>Electron gRPC</h1>
-      <h3>
-        Demonstration of using preload script approach. It provides ability to
-        use all power of nodejs functionality
-      </h3>
       <List list={list} />
     </main>
   );
