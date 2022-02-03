@@ -1,9 +1,8 @@
 const path = require('path');
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
-const { Subject } = require('rxjs');
-const { generateEmployee } = require('./data');
 const faker = require('@faker-js/faker');
+const { generateEmployee } = require('./data');
 
 const employees = [];
 
