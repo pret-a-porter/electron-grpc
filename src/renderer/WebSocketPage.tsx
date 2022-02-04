@@ -1,14 +1,52 @@
-import { Employee } from 'model/Employee';
-import { FC, useState } from 'react';
-import { List } from './List';
+import { FC, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import io, { Socket } from 'socket.io-client';
+import { Result } from './Result';
 
 export const WebSocketPage: FC = () => {
-  const [list, setList] = useState<Employee[]>([]);
+  const navigate = useNavigate();
+  const socket = useRef<Socket>();
+  const [result, setResult] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    let total = 0;
+    socket.current = io('localhost:5500', {
+      autoConnect: false,
+      reconnection: false,
+      rejectUnauthorized: false,
+      secure: false,
+      transports: ['websocket'],
+    });
+
+    socket.current.on('connect', () => {
+      start = performance.now();
+    });
+
+    socket.current.connect();
+
+    socket.current.on('data', (data) => {
+      total += 1;
+      console.log('debug: received new batch. Batch size is ', data.length);
+
+      if (total >= 100) {
+        socket.current?.close();
+        setResult(performance.now() - start);
+      }
+    });
+
+    return () => {
+      socket.current?.close();
+    };
+  }, []);
 
   return (
     <main>
+      <button type="button" onClick={() => navigate(-1)}>
+        Back
+      </button>
       <h1>Electron WebSocket</h1>
-      <List list={list} />
+      <Result value={result} />
     </main>
   );
 };

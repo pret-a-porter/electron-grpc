@@ -1,9 +1,7 @@
-import { Employee } from 'model/Employee';
-import { Subject } from 'rxjs';
+import { ServiceClient } from '@grpc/grpc-js/build/src/make-client';
 
 declare global {
   interface Window {
-    fetchAll(): Subject<Employee[]>;
-    generate(): Promise<Employee>;
+    client: ServiceClient;
   }
 }

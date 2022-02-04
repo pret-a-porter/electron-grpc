@@ -1,5 +1,9 @@
 const path = require('path');
-const grpc = require('@grpc/grpc-js');
+const {
+  loadPackageDefinition,
+  Server,
+  ServerCredentials,
+} = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const faker = require('@faker-js/faker');
 const { generateEmployee } = require('./data');
@@ -16,10 +20,10 @@ const packageDefinition = protoLoader.loadSync(
     oneofs: true,
   }
 );
-const employeeProto = grpc.loadPackageDefinition(packageDefinition).employee;
+const employeeProto = loadPackageDefinition(packageDefinition).employee;
 
 function getAll(call) {
-  const BATCH_SIZE = 25000;
+  const BATCH_SIZE = 30000;
   const list = [];
 
   const add = () => {
@@ -30,9 +34,9 @@ function getAll(call) {
   };
 
   const update = (start = 0) => {
-    for (let i = start; i < list.length - 1; i += 1) {
-      list[i].email = faker.internet.email();
-    }
+    // for (let i = start; i < list.length - 1; i += 1) {
+    //   list[i].email = faker.internet.email();
+    // }
     call.write({ employees: list });
   };
 
@@ -42,33 +46,25 @@ function getAll(call) {
     } else {
       add();
     }
-  }, 100);
-}
+  }, 10);
 
-function generate(call, callback) {
-  const newEmployee = generateEmployee();
-  employees.push(newEmployee);
-  // subject.next(employees);
-
-  callback(null, {
-    employee: newEmployee,
+  call.on('end', () => {
+    call.end();
   });
 }
 
 function main() {
-  const server = new grpc.Server();
+  const server = new Server({
+    'grpc.max_concurrent_streams': 100,
+    'grpc.max_send_message_length': 1024 * 1024 * 1024,
+  });
   server.addService(employeeProto.Employee.service, {
-    generate,
     getAll,
   });
-  server.bindAsync(
-    '0.0.0.0:4500',
-    grpc.ServerCredentials.createInsecure(),
-    () => {
-      server.start();
-      console.log('Server started');
-    }
-  );
+  server.bindAsync('0.0.0.0:4500', ServerCredentials.createInsecure(), () => {
+    server.start();
+    console.log('Server started');
+  });
 }
 
 main();

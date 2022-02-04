@@ -1,5 +1,4 @@
 const path = require('path');
-const { Subject } = require('rxjs');
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 
@@ -11,26 +10,11 @@ const employeeProto = grpc.loadPackageDefinition(packageDefinition).employee;
 
 const client = new employeeProto.Employee(
   'localhost:4500',
-  grpc.credentials.createInsecure()
+  grpc.credentials.createInsecure(),
+  {
+    'grpc.max_concurrent_streams': 100,
+    'grpc.max_receive_message_length': 1024 * 1024 * 1024,
+  }
 );
 
-function fetchAll() {
-  const subject = new Subject();
-
-  client.getAll({}).on('data', (chunk) => {
-    subject.next(chunk.employees);
-  });
-
-  return subject;
-}
-
-function generate() {
-  return new Promise((resolve) =>
-    client.generate({}, (err, response) => {
-      resolve(response.employee);
-    })
-  );
-}
-
-exports.fetchAll = fetchAll;
-exports.generate = generate;
+exports.client = client;

@@ -1,4 +1,3 @@
-const { fetchAll, generate } = require('./client');
+const { client } = require('./client');
 
-window.fetchAll = fetchAll;
-window.generate = generate;
+window.client = client;
