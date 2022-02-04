@@ -7,12 +7,12 @@ interface Props {
 
 export const Result: FC<Props> = ({ rows, value }) => {
   if (value === 0) {
-    return <h2>Rows: {rows}</h2>;
+    return <h2>Batches: {rows}</h2>;
   }
 
   return (
     <h2>
-      {rows} rows for {value} milliseconds
+      {rows} batches for {value} milliseconds
     </h2>
   );
 };

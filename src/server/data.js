@@ -22,7 +22,7 @@ function generateEmployee() {
   };
 }
 
-const BATCH_SIZE = 30000;
+const BATCH_SIZE = 100_000;
 const employees = [];
 for (let i = 0; i < BATCH_SIZE; i += 1) {
   employees.push(generateEmployee());
@@ -30,4 +30,4 @@ for (let i = 0; i < BATCH_SIZE; i += 1) {
 
 exports.generateEmployee = generateEmployee;
 exports.employees = employees;
-exports.rows = 10;
+exports.rows = 100;

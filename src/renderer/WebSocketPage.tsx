@@ -1,3 +1,4 @@
+import { Batch } from 'model/Batch';
 import { FC, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import io, { Socket } from 'socket.io-client';
@@ -25,7 +26,8 @@ export const WebSocketPage: FC = () => {
 
     socket.current.connect();
 
-    socket.current.on('data', (data) => {
+    socket.current.on('data', (data: Batch) => {
+      console.log('debug: new batch ', data.employees.length);
       setRows((curr) => curr + 1);
     });
 

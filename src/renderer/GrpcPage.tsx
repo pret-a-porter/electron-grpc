@@ -1,4 +1,4 @@
-import { Employee } from 'model/Employee';
+import { Batch } from 'model/Batch';
 import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Result } from './Result';
@@ -13,7 +13,8 @@ export const GrpcPage: FC = () => {
 
     window.client
       .getAll({})
-      .on('data', (chunk: { employees: Employee[] }) => {
+      .on('data', (data: Batch) => {
+        console.log('debug: new batch ', data.employees.length);
         setRows((curr) => curr + 1);
       })
       .on('end', () => {
