@@ -4,26 +4,20 @@ import { useNavigate } from 'react-router-dom';
 import { Result } from './Result';
 
 export const GrpcPage: FC = () => {
+  const [rows, setRows] = useState(0);
   const [result, setResult] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     const start = performance.now();
-    let total = 0;
 
-    const call = window.client
+    window.client
       .getAll({})
       .on('data', (chunk: { employees: Employee[] }) => {
-        total += 1;
-        console.log(
-          'debug: received new batch. Batch size is ',
-          chunk.employees.length
-        );
-
-        if (total === 100) {
-          call.cancel();
-          setResult(performance.now() - start);
-        }
+        setRows((curr) => curr + 1);
+      })
+      .on('end', () => {
+        setResult(performance.now() - start);
       })
       .on('error', (error: unknown) => {
         console.error(error);
@@ -36,7 +30,7 @@ export const GrpcPage: FC = () => {
         Back
       </button>
       <h1>Electron gRPC</h1>
-      <Result value={result} />
+      <Result rows={rows} value={result} />
     </main>
   );
 };

@@ -6,11 +6,11 @@ import { Result } from './Result';
 export const WebSocketPage: FC = () => {
   const navigate = useNavigate();
   const socket = useRef<Socket>();
+  const [rows, setRows] = useState(0);
   const [result, setResult] = useState(0);
 
   useEffect(() => {
     let start = 0;
-    let total = 0;
     socket.current = io('localhost:5500', {
       autoConnect: false,
       reconnection: false,
@@ -26,13 +26,11 @@ export const WebSocketPage: FC = () => {
     socket.current.connect();
 
     socket.current.on('data', (data) => {
-      total += 1;
-      console.log('debug: received new batch. Batch size is ', data.length);
+      setRows((curr) => curr + 1);
+    });
 
-      if (total >= 100) {
-        socket.current?.close();
-        setResult(performance.now() - start);
-      }
+    socket.current.on('disconnect', () => {
+      setResult(performance.now() - start);
     });
 
     return () => {
@@ -46,7 +44,7 @@ export const WebSocketPage: FC = () => {
         Back
       </button>
       <h1>Electron WebSocket</h1>
-      <Result value={result} />
+      <Result rows={rows} value={result} />
     </main>
   );
 };

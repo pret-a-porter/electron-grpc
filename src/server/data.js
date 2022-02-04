@@ -16,10 +16,18 @@ function generateEmployee() {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     address: generateAdress(),
-    phone: '+123456789',
+    phone: faker.phone.phoneNumber(),
     age: 100,
     experience: 50,
   };
 }
 
+const BATCH_SIZE = 30000;
+const employees = [];
+for (let i = 0; i < BATCH_SIZE; i += 1) {
+  employees.push(generateEmployee());
+}
+
 exports.generateEmployee = generateEmployee;
+exports.employees = employees;
+exports.rows = 10;
