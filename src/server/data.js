@@ -22,7 +22,7 @@ function generateEmployee() {
   };
 }
 
-const BATCH_SIZE = 100_000;
+const BATCH_SIZE = 10_000;
 const employees = [];
 for (let i = 0; i < BATCH_SIZE; i += 1) {
   employees.push(generateEmployee());
